@@ -1,7 +1,5 @@
 import java.io.IOException;
-import java.util.Dictionary;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
+import java.util.*;
 
 /***
  * Controller provides basic functionality and interSystem communication
@@ -16,8 +14,8 @@ public abstract class ControllerBase {
 	
 	public String logFileName;
 	
-	private Thread driveThread;
-	private DriveThread opticalThread;
+	private DriveThread driveThread;
+	private OpticalThread opticalThread;
 	private InputThread inputThread;
 	private SandSortingThread sandSortingThread;
 	private List<Thread> Threads;
@@ -26,7 +24,7 @@ public abstract class ControllerBase {
 		lowBattery,
 		PlasticFull,
 	}
-	protected Dictionary<PropertyList,Object > PropertyDict;
+	protected HashMap<PropertyList,Object > PropertyDict;
 
 	
 	/**
@@ -38,6 +36,11 @@ public abstract class ControllerBase {
 	}
 	
 	private void setupThreads() {
+		driveThread = new DriveThread();
+		opticalThread = new OpticalThread();
+		inputThread = new InputThread();
+		sandSortingThread = new SandSortingThread();
+		Threads = new ArrayList<Thread>();
 		Threads.add(driveThread);
 		Threads.add(inputThread);
 		Threads.add(opticalThread);
@@ -48,6 +51,7 @@ public abstract class ControllerBase {
 		driveSystem = new Systems.DriveSystem();
 		inputSystem = new Systems.InputSystem();
 		opticalSystem = new Systems.OpticalSystem();
+		PropertyDict = new HashMap<PropertyList, Object>();
 		PropertyDict.put(PropertyList.lowBattery, this.LowBatteryFunction());
 		PropertyDict.put(PropertyList.PlasticFull,  this.PlasticFullFunction());
 	}
