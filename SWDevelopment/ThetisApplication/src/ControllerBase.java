@@ -6,11 +6,7 @@ import java.util.*;
  * @author ProjectThetis
  * 
  */
-public abstract class ControllerBase {
-	protected Systems.DriveSystem driveSystem;
-	protected Systems.InputSystem inputSystem;
-	protected Systems.OpticalSystem opticalSystem;
-	//protected Systems.SandSortingSystem SortingSystem;
+public abstract class ControllerBase extends ThreadBase{
 	
 	public String logFileName;
 	
@@ -24,7 +20,7 @@ public abstract class ControllerBase {
 		lowBattery,
 		PlasticFull,
 	}
-	protected HashMap<PropertyList,Object > PropertyDict;
+	protected HashMap<PropertyList,Object > PropertyDict;//"Dictionary"
 
 	
 	/**
@@ -48,23 +44,31 @@ public abstract class ControllerBase {
 	}
 	
 	private void setupSystems() {
-		driveSystem = new Systems.DriveSystem();
-		inputSystem = new Systems.InputSystem();
-		opticalSystem = new Systems.OpticalSystem();
 		PropertyDict = new HashMap<PropertyList, Object>();
 		PropertyDict.put(PropertyList.lowBattery, this.LowBatteryFunction());
 		PropertyDict.put(PropertyList.PlasticFull,  this.PlasticFullFunction());
 	}
-	
+	/**
+	 * Starts all threads in Threads(private)
+	 */
 	protected void startThreads() {
 		for(Thread t : Threads) {
 			t.run();
 		}
 	}
 	
+	/**
+	 * Executed when low battery property flips
+	 * @return state of execution
+	 */
 	protected boolean LowBatteryFunction() {
 		return false;
 	}
+	
+	/**
+	 * Executed when Plastic full Property flips
+	 * @return state of execution
+	 */
 	protected boolean PlasticFullFunction() {
 		return false;
 	}
