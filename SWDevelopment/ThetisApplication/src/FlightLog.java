@@ -64,24 +64,10 @@ public class FlightLog {
 		this.commands = tempCommands;
 	}
 
-	public void addLoiter(double radius, double[] position) {
-		String command = "MAV_CMD_NAV_LOITER_UNLIM(,,";// 2x empty params
-		command += Double.toString(radius);
-		command += ",,";// yaw angle required here for operation
-		command += Double.toString(position[1]) + ", " + Double.toString(position[0]);// in Lat/Long
-		command += ",)";// include Alt here for operation
-		appendCommands(command);
-	}
-
 	public void addWayPoint(double[] position) {
 		String command = "MAV_CMD_NAV_WAYPOINT(1,5,0,NaN";// Hold time, AcceptanceRadius(m), distanceFrom, Yaw ang
 		command += Double.toString(position[1]) + "," + Double.toString(position[0]);// in Lat/long
 		command += ",";// include Alt here for operation
-		appendCommands(command);
-	}
-
-	public void addHover() {
-		String command = "MAV_CMD_DO_PAUSE_CONTINUE(0)";// 0 for hold, 1 for continue
 		appendCommands(command);
 	}
 
