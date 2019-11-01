@@ -53,7 +53,7 @@ public abstract class ControllerBase extends ThreadBase{
 	 */
 	protected void startThreads() {
 		for(Thread t : Threads) {
-			t.run();
+			t.start();
 		}
 	}
 	
