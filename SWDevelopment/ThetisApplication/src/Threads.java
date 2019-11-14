@@ -1,59 +1,95 @@
-class DriveThread extends Thread{
+/**
+ * DriveThread controls all motor operations
+ * 
+ * @author ProjectThetis
+ *
+ */
+class ThreadBase {
+	class DriveThread extends Thread {
+		protected Systems.DriveSystem driveSystem;
 
-	public DriveThread() {
-		super();
-		this.setName("DriveThread");
-	}
-	@Override
-	public void run() {
-		// TODO Auto-generated method stub
-		System.out.println("This is the DriveThread Executing");
+		public DriveThread() {
+			super();
+			driveSystem = new Systems.DriveSystem();
+			setName("DriveThread");
+		}
+
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			System.out.println("This is the DriveThread Executing");
+		}
+
 	}
 
-	
-}
-class InputThread extends Thread {
+	/**
+	 * InputThread contains all GPS, Accel, ect. reads
+	 * 
+	 * @author ProjectThetis
+	 *
+	 */
+	class InputThread extends Thread {
+		protected Systems.InputSystem inputSystem;
 
-	public InputThread() {
-		super();
-		this.setName("InputThread");
-	}
-	
-	@Override
-	public void run() {
-		// TODO Auto-generated method stub
-		System.out.println("This is the InputThread Executing");
-		
-	}
-	
-}
-class OpticalThread extends Thread{
+		public InputThread() {
+			super();
+			inputSystem = new Systems.InputSystem();
+			setName("InputThread");
+		}
 
-	public OpticalThread() {
-		super();
-		this.setName("OpticalThread");
-	}
-	
-	@Override
-	public void run() {
-		// TODO Auto-generated method stub
-		System.out.println("This is the OpticalThread Executing");
-		
-	}
-	
-}
-class SandSortingThread extends Thread{
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			System.out.println("This is the InputThread Executing");
 
-	public SandSortingThread() {
-		super();
-		this.setName("SandSortingThread");
+		}
+
 	}
-	
-	@Override
-	public void run() {
-		// TODO Auto-generated method stub
-		System.out.println("This is the SandSortingThread Executing");
-		
+
+	/**
+	 * OpticalThread contains all Lidar and camera detection and operation functions
+	 * 
+	 * @author ProjectThetis
+	 *
+	 */
+	class OpticalThread extends Thread {
+		protected Systems.OpticalSystem opticalSystem;
+
+		public OpticalThread() {
+			super();
+			opticalSystem = new Systems.OpticalSystem();
+			this.setName("OpticalThread");
+		}
+
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			System.out.println("This is the OpticalThread Executing");
+
+		}
+
 	}
-	
+
+	/**
+	 * SandSortingThread controls the internal sorting functions
+	 * 
+	 * @author ProjectThetis
+	 *
+	 */
+	class SandSortingThread extends Thread {
+		protected Systems.SandSortingSystem sortingSystem;
+
+		public SandSortingThread() {
+			super();
+			sortingSystem = new Systems.SandSortingSystem();
+			this.setName("SandSortingThread");
+		}
+
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			System.out.println("This is the SandSortingThread Executing");
+
+		}
+	}
 }

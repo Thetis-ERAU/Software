@@ -17,6 +17,9 @@ import com.pi4j.io.i2c.I2CFactory;
 
 public class DriveSystem {
 
+	/**
+	 * Default Constructor
+	 */
 	public DriveSystem() {
 
 	}
@@ -42,6 +45,7 @@ public class DriveSystem {
 	public boolean ChangeSpeed(double speed) {
 		return false;
 	}
+	
 	/**
 	 * Stops all drive functions of the bot immediately
 	 * @return state of execution

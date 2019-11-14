@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk-13"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk-13">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="lib" path="release/ThetisApplication.jar"/>
 	<classpathentry kind="lib" path="C:/Users/matt/Documents/Essentials/Thetis/pi4j-1.2/lib/pi4j-core.jar"/>
 	<classpathentry kind="lib" path="C:/Users/matt/Documents/Essentials/Thetis/pi4j-1.2/lib/pi4j-gpio-extension.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/jdk-13/lib/openjfx/javafx-sdk-11.0.2/lib/javafx.controls.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/jdk-13/lib/openjfx/javafx-sdk-11.0.2/lib/javafx.base.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/jdk-13/lib/openjfx/javafx-sdk-11.0.2/lib/javafx.fxml.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/jdk-13/lib/openjfx/javafx-sdk-11.0.2/lib/javafx.properties"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
