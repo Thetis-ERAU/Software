@@ -13,9 +13,9 @@ import adafruit_gps
 import serial
 
 #for RX/TX port (I think this is for us)
-uart = busio.UART(board.TX, board.RX, baudrate = 9600, timeout = 10)
+#uart = busio.UART(board.TX, board.RX, baudrate = 9600, timeout = 10)
 #for Serial, I don't think this is us.  If it is, it is not ttyUSB0
-#uart = serial.Serial('/dev/ttyUSB0', baudrate = 9600, timeout = 10)
+uart = serial.Serial('/dev/serial0', baudrate = 9600, timeout = 10)
 #for I2C
 #i2c = busio.I2C(board.SCL, board.SDA)
 
