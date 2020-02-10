@@ -13,6 +13,8 @@ class DriveSystem(object):
         '''
         Constructor
         '''
+        self.leftWheelAddr = None
+        self.rightWheelAddr = None
         
     def TurnBot(self, angleRad, speed):
         ''' 
