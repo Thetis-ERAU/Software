@@ -14,10 +14,10 @@ class InputSystem(object):
         '''
         Constructor
         '''
-        gpsPort = GPSPort
-        accel = plasticLevelPort
-        plasticLevel = plasticLevelPort
-        batterylvl = batLevelPort
+        self.gpsPort = GPSPort
+        self.accel = plasticLevelPort
+        self.plasticLevel = plasticLevelPort
+        self.batterylvl = batLevelPort
         
     def setupProperties(self):
         '''
