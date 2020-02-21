@@ -13,7 +13,7 @@ class InputSystem(object):
     classdocs
     '''
 
-    def __init__(self, gpsFreq = 1000,GPSPort, accelPort, plasticLevelPort, batLevelPort):
+    def __init__(self, gpsFreq = 1000,GPSPort = None, accelPort = None, plasticLevelPort = None, batLevelPort = None):
         '''
         Constructor
         '''
