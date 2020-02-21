@@ -4,7 +4,7 @@ Created on Feb 4, 2020
 @author: matt
 '''
 
-class SandSortingSystem(object):
+class SandSystem(object):
     '''
     classdocs
     '''
