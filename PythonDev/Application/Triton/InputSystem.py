@@ -13,18 +13,21 @@ class InputSystem(object):
     classdocs
     '''
 
-    def __init__(self, gpsFreq = 1000):
+    def __init__(self, gpsFreq = 1000,GPSPort, accelPort, plasticLevelPort, batLevelPort):
         '''
         Constructor
         '''
         self.gpsFreq = gpsFreq  # in ms
+        self.gpsPort = GPSPort
+        self.accel = plasticLevelPort
+        self.plasticLevel = plasticLevelPort
+        self.batterylvl = batLevelPort
         try:
             self.uart = serial.Serial('/dev/serial0', baudrate = 9600, timeout = 10)
             self.gps = adafruit_gps.GPS(uart, debut = False)
         except serial.SerialException:
             self.gps = None
-            print("GPS connection failed, Serial Exception raised")
-        
+            print("GPS connection failed, Serial Exception raised")     
         self.gpsDataDict = {'_uart': -1,
                             'latitude': -1, 
                             'longitude': -1, 
@@ -53,7 +56,13 @@ class InputSystem(object):
         @postcondition: Properties will not be null
         '''
         
+
     def updateValues(self):
+        
+    def getGPS(self):
+        gpsOutput = gpsPort
+        print("The gps port is on: " + gpsOutput)
+       
         '''
         Updates all read values, and sends to log file
         @postcondition: All input parameters will be updated with current values, or made null
@@ -81,5 +90,9 @@ class InputSystem(object):
         else:
             for key in self.gpsDataDict.keys():
                 self.DataDict[key] = -1
-
+                
+        self.gpsOutput = self.getGPS()
+        self.accelOutput = self.getAccel()
+        self.battVolt = self.getbattVoltage()
+        self.plasticLvl = self.getPlasticLevel()
 
