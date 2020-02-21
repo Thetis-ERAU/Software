@@ -9,7 +9,7 @@ class DriveSystem(object):
     '''
 
 
-    def __init__(self, lServoPort, rServoPort):
+    def __init__(self, lServoPort = None, rServoPort = None):
         '''
         Constructor
         '''

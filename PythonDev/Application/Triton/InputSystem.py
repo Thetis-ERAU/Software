@@ -13,7 +13,7 @@ class InputSystem(object):
     classdocs
     '''
 
-    def __init__(self, gpsFreq = 1000,GPSPort = None, accelPort = None, plasticLevelPort = None, batLevelPort = None):
+    def __init__(self, gpsFreq = 1000,GPSPort = '/dev/serial0', accelPort = None, plasticLevelPort = None, batLevelPort = None):
         '''
         Constructor
         '''
@@ -23,7 +23,7 @@ class InputSystem(object):
         self.plasticLevel = plasticLevelPort
         self.batterylvl = batLevelPort
         try:
-            self.uart = serial.Serial('/dev/serial0', baudrate = 9600, timeout = 10)
+            self.uart = serial.Serial(GPSPort, baudrate = 9600, timeout = 10)
             self.gps = adafruit_gps.GPS(uart, debut = False)
         except serial.SerialException:
             self.gps = None
@@ -58,17 +58,14 @@ class InputSystem(object):
         
 
     def updateValues(self):
-        
-    def getGPS(self):
-        gpsOutput = gpsPort
-        print("The gps port is on: " + gpsOutput)
-       
+
         '''
         Updates all read values, and sends to log file
         @postcondition: All input parameters will be updated with current values, or made null
         if unable to refresh.  Old Values will be sent to file
         @return: boolean status of excecution
         '''
+        print("The gps port is on: " + self.gpsPort)
         allWorking = self.updateGPS()
         return allWorking
 
@@ -91,8 +88,4 @@ class InputSystem(object):
             for key in self.gpsDataDict.keys():
                 self.DataDict[key] = -1
                 
-        self.gpsOutput = self.getGPS()
-        self.accelOutput = self.getAccel()
-        self.battVolt = self.getbattVoltage()
-        self.plasticLvl = self.getPlasticLevel()
 
