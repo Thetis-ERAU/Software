@@ -10,16 +10,25 @@ class InputSystem(object):
     '''
 
 
-    def __init__(self, params):
+    def __init__(self, GPSPort, accelPort, plasticLevelPort, batLevelPort):
         '''
         Constructor
         '''
+        self.gpsPort = GPSPort
+        self.accel = plasticLevelPort
+        self.plasticLevel = plasticLevelPort
+        self.batterylvl = batLevelPort
         
     def setupProperties(self):
         '''
         batteryislow & plasticFullProperties to be added
         @postcondition: Properties will not be null
         '''
+        
+        
+    def getGPS(self):
+        gpsOutput = gpsPort
+        print("The gps port is on: " + gpsOutput)
         
     def UpdateValues(self):
         '''
@@ -29,3 +38,8 @@ class InputSystem(object):
         if unable to refresh.  Old Values will be sent to file
         @return: boolean status of excecution
         '''
+        gpsOutput = self.getGPS()
+        accelOutput = self.getAccel()
+        battVolt = self.getbattVoltage()
+        plasticLvl = self.getPlasticLevel()
+        
