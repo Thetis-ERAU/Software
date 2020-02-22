@@ -10,25 +10,32 @@ class OpticalSystem(object):
     '''
 
 
-    def __init__(self, params):
+    def __init__(self, liPort = None, camPort = None, width = None, height = None):
         '''
         Constructor
         '''
-        self.cameraPort = None
-        self.lidarPort = None
-        self.objectPositions = None
-    
-    def detectObjects(self):
-        self.objectPositions = None
-        
-    def trackObjects(self):
-        self.objectPositions = None
-        
-    def getObjects(self):
+        self.lidarPort = liPort
+        self.cameraPort = camPort
+        #How to create an array: https://stackoverflow.com/questions/6667201/how-to-define-a-two-dimensional-array-in-python
+        objPosition = [[width],[height]]
+
+    def detectObject(self):
         '''
-        @return 2xn array of positions
         '''
+
+    def trackObject(self):
+        '''
+        '''
+
+    def getObjects(self,w,h):
+        '''
+        '''
+        print("The object is at position " + objPosition[w][h])
+
+    def recordData(self):
+        '''
+        '''
+
     def isWorking(self):
         '''
-        @return camera's current operations
         '''

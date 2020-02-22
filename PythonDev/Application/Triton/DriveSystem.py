@@ -9,12 +9,13 @@ class DriveSystem(object):
     '''
 
 
-    def __init__(self, params):
+    def __init__(self, lServoPort = None, rServoPort = None):
         '''
         Constructor
         '''
-        self.leftWheelAddr = None
-        self.rightWheelAddr = None
+
+        self.leftWheelServo = lServoPort
+        self.rightWheelServo = rServoPort
         
     def TurnBot(self, angleRad, speed):
         ''' 
@@ -34,15 +35,20 @@ class DriveSystem(object):
         @return state of execution
         '''
         
-    def FireRightMotor(self):
+    def FireLeftMotor(self,time):
         '''
         Testing method that fires right motor for ___ time
         @return state of execution
         '''
         
-    def FireLeftMotor(self):
+    def FireRightMotor(self,time):
         '''
-        Testing method that fires left motor for ___ time
+        Testing method that fires right motor for ___ time
         @return state of execution
         '''
+
+    def GoStraight(self, doubleHere, doubleThere):
+        self.FireLeftMotor(doubleHere)
+        self.FireRightMotor(doubleThere)
+
         
