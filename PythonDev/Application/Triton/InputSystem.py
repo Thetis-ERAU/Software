@@ -8,6 +8,7 @@ import adafruit_gps
 import signal, time
 import inputs
 import threading, _thread
+from HelperClasses import EVENT_ABB
 from contextlib import contextmanager
 
 
@@ -24,7 +25,13 @@ class InputSystem(object):
         '''
         self.gpsUart = None
         self.gps = None
-        self.gamepadEvents = None
+
+        self.gamepad = None
+        self.gamepadEvents = {}
+        self.oldGamepadEvents = {}
+        self.gamepadAbbr = dict(EVENT_ABB)
+        self._other = 0  #number of keyEvents that are not in EVENT_ABB
+
         self.accelPort = accelPort
         self.plasticLevelPort = plasticLevelPort
         self.batteryLevelPort = batLevelPort
@@ -127,21 +134,51 @@ class InputSystem(object):
         @return gamepad connection status
         '''
         try:
-            with self.time_limit(.5):
-                self.gamepadEvents = inputs.get_gamepad() 
-            return True
-        except TimeoutException as e:
-            print("Gamepad initialization hung, moving on")
-        except inputs.UnpluggedError:
+            self.gamepad = inputs.devices.gamepads[0]
+        except IndexError:
+            self.gamepad = None
             print("Gamepad not found, InputSYstem cannot continue setupGamepad")
-            self.gamepadEvents = False
-        return False
 
     def updateJoystick(self):
         '''
         Updates 
         '''
-        #for event in self.gamepadEvents:
-        #    print(event.ev_type, event.code, event.state)
+        if self.gamepad is None:
+            return
+
+        try:
+            events = self.gamepad.read()
+        except EOFError:
+            events = []
+        for event in events:
+            if event.ev_type =='Sync' or event.ev_type =='Misc':
+                return
+            key = event.ev_type + '-' + event.code
+            
+            try:
+               abbv = self.gamepadAbbr[key]
+            except KeyError:
+                    abbv = self.handle_unknown_event(event, key)
+                    if not abbv: return
+            
+            if event.ev_type =='Key' or event.ev_type == 'Absolute':
+                self.gamepadEvents[abbv] = event.state
+
+
+    def handle_unknown_event(self, event, key):
+        """Deal with unknown events."""
+        if event.ev_type == 'Key' or event.ev_type == 'Absolute':
+            new_abbv = 'B' + str(self._other)
+            self.gamepadEvents[new_abbv] = 0
+            self.oldGamepadEvents[new_abbv] = 0
+
+        else:
+            return None
+        self.gamepadAbbr[key] = new_abbv
+        #self._other += 1
+
+        return self.gamepadAbbr[key]
+
+   
 
 
