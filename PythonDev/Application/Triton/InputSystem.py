@@ -27,7 +27,7 @@ class InputSystem(object):
         self.gps = None
 
         self.gamepad = None
-        self.gamepadEvents = {}
+        self.gamepadState = {}
         self.oldGamepadEvents = {}
         self.gamepadAbbr = dict(EVENT_ABB)
         self._other = 0  #number of keyEvents that are not in EVENT_ABB
@@ -39,7 +39,7 @@ class InputSystem(object):
         self.batteryLevel = None
 
         self.gpsOnline = self.setupGPS(gpsPort, gpsFreq)
-        self.gamepadOnline = self.setupGamepad();
+        self.gamepadOnline = self.setupJoystick();
 
 
     def setupProperties(self):
@@ -58,7 +58,7 @@ class InputSystem(object):
         '''
         print("The gps port is on: " + str(self.gpsUart))
         allWorking = self.updateGPS()
-        allWorking = self.updateJoystick()
+        #allWorking = self.updateJoystick()
         return allWorking
 
     @contextmanager
@@ -128,7 +128,7 @@ class InputSystem(object):
             for key in self.gpsDataDict.keys():
                 self.DataDict[key] = -1
 
-    def setupGamepad(self):
+    def setupJoystick(self):
         '''
         Connects a gamepad if connected
         @return gamepad connection status
@@ -137,19 +137,31 @@ class InputSystem(object):
             self.gamepad = inputs.devices.gamepads[0]
         except IndexError:
             self.gamepad = None
-            print("Gamepad not found, InputSYstem cannot continue setupGamepad")
+            self.gamepadOnline = false
+            print("Gamepad not found, InputSystem cannot continue setupGamepad")
+            return False
+        return True
 
     def updateJoystick(self):
         '''
-        Updates 
+        Updates joystick values
+        @return state of excecution
         '''
         if self.gamepad is None:
             return
+        elif not self.gamepadOnline:
+            self.setupJoystick()
+            return False
 
         try:
             events = self.gamepad.read()
         except EOFError:
             events = []
+        except inputs.UnpluggedError:
+            print("Index Error due to gamepad not found, idling until found again")
+            self.gamepadOnline = false
+            return false
+
         for event in events:
             if event.ev_type =='Sync' or event.ev_type =='Misc':
                 return
@@ -162,23 +174,37 @@ class InputSystem(object):
                     if not abbv: return
             
             if event.ev_type =='Key' or event.ev_type == 'Absolute':
-                self.gamepadEvents[abbv] = event.state
+                if event.state is not None:
+                    self.gamepadState[abbv] = event.state
 
+        #print(self.strJoystickState())
 
     def handle_unknown_event(self, event, key):
         """Deal with unknown events."""
         if event.ev_type == 'Key' or event.ev_type == 'Absolute':
             new_abbv = 'B' + str(self._other)
-            self.gamepadEvents[new_abbv] = 0
+            self.gamepadState[new_abbv] = 0
             self.oldGamepadEvents[new_abbv] = 0
 
         else:
             return None
         self.gamepadAbbr[key] = new_abbv
-        #self._other += 1
+        self._other += 1
 
         return self.gamepadAbbr[key]
 
+    def strJoystickState(self):
+        """Format the state."""
+        output_string = ""
+        #for key, value in self.gamepadState.items():
+        #    output_string += key + ':' + '{:>4}'.format(str(value) + ' ')
+
+        for key, value in self.gamepadState.items():
+            output_string += key + ':' + str(value) + ' '
+
+        return output_string
    
+
+    
 
 
