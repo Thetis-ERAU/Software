@@ -23,12 +23,20 @@ class DriveSystem(object):
         Constructor
         '''
         if i2c is None:
-            i2c = busio.I2C(board.SCL, board.SCA)
+            try:
+                i2c = busio.I2C(board.SCL, board.SCA)
+            except(AttributeError):
+                print("Are you trying to run on windows?  DriveSystem will not work due to the board import")
+                self.pwmHatConnected = False
+                return
         self.setupPwmHat(i2c, motorRightPort, motorLeftPort)
         
+
+
     def setupPwmHat(self, i2c, rightPort, leftPort):
         global VICTOR_FREQ
         self.pwmHat = adafruit_pca9685.PCA9685(i2c)
+        self.pwmHatConnected = True
         self.pwmHat.frequency = VICTOR_FREQ
         self.motorRightChannel = self.pwmHat.channels[rightPort]
         self.motorLeftChannel = self.pwmHat.channels[leftPort]
@@ -56,6 +64,10 @@ class DriveSystem(object):
         Testing method that fires right motor for ___ time
         @return state of execution
         '''
+        if not self.pwmHatConnected:
+            self.printNoHatConnected()
+            return
+
         global VICTOR_DUTY_MAX, VICTOR_DUTY_NEUTRAL
 
         motorChannel.duty_cycle = VICTOR_DUTY_MAX
@@ -68,6 +80,10 @@ class DriveSystem(object):
         Testing method that fires right motor for ___ time
         @return state of execution
         '''
+        if not self.pwmHatConnected:
+            self.printNoHatConnected()
+            return
+
         self.testFireVictor(self.motorRightChannel, seconds)
 
     def fireLeftMotor(self, seconds = 1):
@@ -75,10 +91,22 @@ class DriveSystem(object):
         Testing method that fires right motor for ___ time
         @return state of execution
         '''
+        if not self.pwmHatConnected:
+            self.printNoHatConnected()
+            return 
+
         self.testFireVictor(self.motorLeftChannel, seconds)
 
     def goStraight(self, doubleHere, doubleThere):
+        if not self.pwmHatConnected:
+            self.printNoHatConnected()
+            return
+
         self.FireLeftMotor(doubleHere)
         self.FireRightMotor(doubleThere)
 
+    @staticmethod
+    def printNoHatConnected():
+        print("Cannot control motors without PWM hat connected")
+    
         
