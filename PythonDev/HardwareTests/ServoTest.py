@@ -12,9 +12,9 @@ import adafruit_pca9685
 i2c = busio.I2C(board.SCL, board.SDA)
 servoHat = adafruit_pca9685.PCA9685(i2c)
 
-hat.frequency = 50 # in Hz
+servoHat.frequency = 50 # in Hz
 
-servoChannel = hat.channels[0]
+servoChannel = servoHat.channels[0]
 servoChannel.duty_cycle = 1999 # 10% duty cycle (0x000 -> 0xffff) - hex
 
 '''

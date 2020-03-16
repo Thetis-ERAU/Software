@@ -1,8 +1,6 @@
 '''
 Created on Jan 17, 2020
-
 @author: matt
-
 #https://cdn-learn.adafruit.com/downloads/pdf/adafruit-ultimate-gps-hat-for-raspberry-pi.pdf
 # THIS TEST IS FOR USB CONNECTIONS, IT WILL NOT WORK FOR THE HAT
 '''
