@@ -164,7 +164,6 @@ class InputSystem(object):
             if event.ev_type =='Key' or event.ev_type == 'Absolute':
                 self.gamepadEvents[abbv] = event.state
 
-
     def handle_unknown_event(self, event, key):
         """Deal with unknown events."""
         if event.ev_type == 'Key' or event.ev_type == 'Absolute':

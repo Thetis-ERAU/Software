@@ -17,6 +17,11 @@ class DriveSystem(object):
         self.leftWheelServo = lServoPort
         self.rightWheelServo = rServoPort
         
+
+    def RawInput(self, r_motor, l_motor):
+
+
+        
     def TurnBot(self, angleRad, speed):
         ''' 
         Turns the Robot relative to the angleRad, changing the set speed to speed
