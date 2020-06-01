@@ -1,9 +1,9 @@
 """Simple gamepad/joystick test example."""
-
 from __future__ import print_function
-
+from collections import deque
 
 import inputs
+import time
 
 
 EVENT_ABB = (
@@ -66,10 +66,13 @@ class JSTest(object):
 
     def _get_gamepad(self):
         """Get a gamepad object."""
-        try:
-            self.gamepad = inputs.devices.gamepads[0]
-        except IndexError:
-            raise inputs.UnpluggedError("No gamepad found.")
+        while(not self.gamepad):
+            try:
+                self.gamepad = inputs.devices.gamepads[0]
+            except IndexError:
+                print("gamepad not connected, polling for connection")
+                raise inputs.UnpluggedError("No gamepad found.")
+                time.sleep(.05) # refreshing at 20 Hz for gamepad connection
 
     def handle_unknown_event(self, event, key):
         """Deal with unknown events."""
@@ -138,10 +141,22 @@ class JSTest(object):
 
     def process_events(self):
         """Process available events."""
+
         try:
-            events = self.gamepad.read()
+            gamepadIter = iter(self.gamepad)
+            for i in range(4):
+                events = next(gamepadIter)
+            #events = self.gamepad._do_iter()
+            if not events:
+                return
+            #events = self.gamepad.read()
         except EOFError:
             events = []
+        except inputs.UnpluggedError:
+            print("Index Error due to gamepad not found, idling until it is found again")
+            return
+        #self.process_event(events.pop())
+        
         for event in events:
             self.process_event(event)
 
@@ -150,8 +165,12 @@ def main():
     """Process all events forever."""
     jstest = JSTest()
     while 1:
-        jstest.process_events()
+        jstest.process_events() #don't limit to time, it is a pipe, and will LAGG_G_gG
+        time.sleep(.05)
+ 
+        
 
 
 if __name__ == "__main__":
     main()
+
