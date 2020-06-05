@@ -110,7 +110,7 @@ class InputSystem(object):
             print("GPS has not been initialized, so SetupGPS in InputSystem cannot continue")
             return False;
         self.gps.send_command(b'PMTK314,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0')
-        self.gps.send_command(b'PMTK220,'+str(gpsFreq))
+        self.gps.send_command(b'PMTK220,'+bytes(gpsFreq))
         return True
     
     def updateGPS(self):
