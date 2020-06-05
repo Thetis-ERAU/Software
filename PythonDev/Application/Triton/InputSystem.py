@@ -123,10 +123,10 @@ class InputSystem(object):
         self.gps.update()
         if self.gps.has_fix:
             for key in self.gpsDataDict.keys():
-                self.DataDict[key] = gps.key
+                self.gpsDataDict[key] = self.gps.key
         else:
             for key in self.gpsDataDict.keys():
-                self.DataDict[key] = -1
+                self.gpsDataDict[key] = -1
 
     def setupJoystick(self):
         '''
