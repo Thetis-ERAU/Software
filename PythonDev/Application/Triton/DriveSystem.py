@@ -35,7 +35,7 @@ class DriveSystem(object):
     def RawInput(self, r_motor, l_motor):
   
     def setupPwmHat(self, i2c, rightPort, leftPort):
-        global VICTOR_FREQ
+        #global VICTOR_FREQ
         self.pwmHat = adafruit_pca9685.PCA9685(i2c)
         self.pwmHatConnected = True
         self.pwmHat.frequency = VICTOR_FREQ
