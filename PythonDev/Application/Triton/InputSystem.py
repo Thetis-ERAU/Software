@@ -81,7 +81,7 @@ class InputSystem(object):
         '''
         try:
             self.gpsUart = serial.Serial(gpsPort, baudrate = 9600, timeout = 10)
-            self.gps = adafruit_gps.GPS(gpsUart, debut = False)
+            self.gps = adafruit_gps.GPS(self.gpsUart, debut = False)
         except serial.SerialException:
             self.gps = None
             print("GPS connection failed, Serial Exception raised")  
