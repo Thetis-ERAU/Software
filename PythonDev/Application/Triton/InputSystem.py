@@ -137,7 +137,7 @@ class InputSystem(object):
             self.gamepad = inputs.devices.gamepads[0]
         except IndexError:
             self.gamepad = None
-            self.gamepadOnline = false
+            self.gamepadOnline = False
             print("Gamepad not found, InputSystem cannot continue setupGamepad")
             return False
         return True
