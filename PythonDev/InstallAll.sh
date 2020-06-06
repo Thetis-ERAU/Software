@@ -25,6 +25,7 @@ sudo pip3 install adafruit-circuitpython-ads1x15
 sudo pip3 install keyboard
 sudo pip3 install inputs
 
+
 #sudo apt-get install gpsd gpsd-clients python-gps p
 
 #Enable VNC, Serial, I2C and SSH
