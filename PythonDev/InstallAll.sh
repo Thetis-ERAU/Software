@@ -15,11 +15,16 @@ sudo git clone https://github.com/Thetis-ERAU/Software.git
 sudo apt-get update & upgrade
 sudo apt-get install python3 -y
 sudo apt-get install python3-pip -y --fix-missing
+sudo apt-get install i2c-tools -y --fix-missing
+
 sudo pip3 install adafruit-circuitpython-gps 
 sudo pip3 install adafruit-circuitpython-servokit 
 sudo pip3 install RPI.GPIO 
 sudo pip3 install adafruit-blinka 
 sudo pip3 install adafruit-circuitpython-ads1x15 
+sudo pip3 install keyboard
+sudo pip3 install inputs
+
 
 #sudo apt-get install gpsd gpsd-clients python-gps p
 
