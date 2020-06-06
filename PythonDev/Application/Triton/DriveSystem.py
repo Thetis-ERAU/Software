@@ -38,7 +38,7 @@ class DriveSystem(object):
         #global VICTOR_FREQ
         self.pwmHat = adafruit_pca9685.PCA9685(i2c)
         self.pwmHatConnected = True
-        self.pwmHat.frequency = VICTOR_FREQ
+        self.pwmHat.frequency = self.VICTOR_FREQ
         self.motorRightChannel = self.pwmHat.channels[rightPort]
         self.motorLeftChannel = self.pwmHat.channels[leftPort]
 
