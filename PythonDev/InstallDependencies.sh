@@ -32,9 +32,6 @@ sudo pip3 install adafruit-circuitpython-ads1x15
 sudo pip3 install keyboard
 sudo pip3 install inputs
 
-
-
-
 #Enable VNC, Serial, I2C and SSH
 sudo raspi-config nonint do_ssh 0 -y
 sudo raspi-config nonint do_camera 0 -y
