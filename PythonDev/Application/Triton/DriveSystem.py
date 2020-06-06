@@ -32,7 +32,7 @@ class DriveSystem(object):
         self.setupPwmHat(i2c, motorRightPort, motorLeftPort)
         
 
-    def RawInput(self, r_motor, l_motor):
+    #def RawInput(self, r_motor, l_motor):
   
     def setupPwmHat(self, i2c, rightPort, leftPort):
         #global VICTOR_FREQ
