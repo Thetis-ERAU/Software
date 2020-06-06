@@ -81,7 +81,7 @@ class InputSystem(object):
         '''
         try:
             self.gpsUart = serial.Serial(gpsPort, baudrate = 9600, timeout = 10)
-            self.gps = adafruit_gps.GPS(gpsUart, debut = False)
+            self.gps = adafruit_gps.GPS(self.gpsUart, debug = False)
         except serial.SerialException:
             self.gps = None
             print("GPS connection failed, Serial Exception raised")  
@@ -110,7 +110,7 @@ class InputSystem(object):
             print("GPS has not been initialized, so SetupGPS in InputSystem cannot continue")
             return False;
         self.gps.send_command(b'PMTK314,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0')
-        self.gps.send_command(b'PMTK220,'+str(gpsFreq))
+        self.gps.send_command(b'PMTK220,'+bytes(gpsFreq))
         return True
     
     def updateGPS(self):
@@ -123,10 +123,10 @@ class InputSystem(object):
         self.gps.update()
         if self.gps.has_fix:
             for key in self.gpsDataDict.keys():
-                self.DataDict[key] = gps.key
+                self.gpsDataDict[key] = self.gps.key
         else:
             for key in self.gpsDataDict.keys():
-                self.DataDict[key] = -1
+                self.gpsDataDict[key] = -1
 
     def setupJoystick(self):
         '''
@@ -137,7 +137,7 @@ class InputSystem(object):
             self.gamepad = inputs.devices.gamepads[0]
         except IndexError:
             self.gamepad = None
-            self.gamepadOnline = false
+            self.gamepadOnline = False
             print("Gamepad not found, InputSystem cannot continue setupGamepad")
             return False
         return True
@@ -176,7 +176,6 @@ class InputSystem(object):
             if event.ev_type =='Key' or event.ev_type == 'Absolute':
                 if event.state is not None:
                     self.gamepadState[abbv] = event.state
-
         #print(self.strJoystickState())
 
     def handle_unknown_event(self, event, key):

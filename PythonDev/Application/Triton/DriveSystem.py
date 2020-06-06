@@ -24,20 +24,21 @@ class DriveSystem(object):
         '''
         if i2c is None:
             try:
-                i2c = busio.I2C(board.SCL, board.SCA)
+                i2c = busio.I2C(board.SCL, board.SDA)
             except(AttributeError):
-                print("Are you trying to run on windows?  DriveSystem will not work due to the board import")
+                print("Are you trying to run on windows, or without the ServoHat?  DriveSystem will not work due to failed connection to HAT")
                 self.pwmHatConnected = False
                 return
         self.setupPwmHat(i2c, motorRightPort, motorLeftPort)
         
 
-
+    #def RawInput(self, r_motor, l_motor):
+  
     def setupPwmHat(self, i2c, rightPort, leftPort):
-        global VICTOR_FREQ
+        #global VICTOR_FREQ
         self.pwmHat = adafruit_pca9685.PCA9685(i2c)
         self.pwmHatConnected = True
-        self.pwmHat.frequency = VICTOR_FREQ
+        self.pwmHat.frequency = self.VICTOR_FREQ
         self.motorRightChannel = self.pwmHat.channels[rightPort]
         self.motorLeftChannel = self.pwmHat.channels[leftPort]
 
