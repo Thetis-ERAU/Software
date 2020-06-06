@@ -1,8 +1,12 @@
 #!bin/bash
 #Installs required dependencies for Thetis & clones repo
 
+#make sure that we have git
+sudo apt-get install git
+
 #Clone Repo
 cd ~
+mkdir Desktop & cd "&_"
 cd Desktop
 mkdir Thetis & cd "&_"
 git clone https://github.com/Thetis-ERAU/Software.git
