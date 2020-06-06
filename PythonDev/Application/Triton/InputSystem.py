@@ -176,7 +176,6 @@ class InputSystem(object):
             if event.ev_type =='Key' or event.ev_type == 'Absolute':
                 if event.state is not None:
                     self.gamepadState[abbv] = event.state
-
         #print(self.strJoystickState())
 
     def handle_unknown_event(self, event, key):
