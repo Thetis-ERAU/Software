@@ -15,6 +15,8 @@
 sudo apt-get update & upgrade
 sudo apt-get install python3 -y
 sudo apt-get install python3-pip -y --fix-missing
+sudo apt-get install i2c-tools -y --fix-missing
+
 sudo pip3 install adafruit-circuitpython-gps 
 sudo pip3 install adafruit-circuitpython-servokit 
 sudo pip3 install RPI.GPIO 
